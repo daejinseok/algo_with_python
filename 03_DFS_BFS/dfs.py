@@ -19,6 +19,5 @@ graph = [
     [1, 7]
 ]
 
-
 visited = [False] * len(graph)
 dfs(graph, 1, visited)
