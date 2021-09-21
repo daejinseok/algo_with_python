@@ -18,7 +18,7 @@ def topology_sort(N1, indegree, graph):
     for i in range(1, N1):
         if indegree[i] == 0:
             que.append(i)
-    
+
     while que:
         node = que.popleft()
         result.append(node)
@@ -30,6 +30,7 @@ def topology_sort(N1, indegree, graph):
 
     return result
 
+
 def solution(data, N1):
 
     indegree = [0] * N1
@@ -39,8 +40,23 @@ def solution(data, N1):
         graph[a].append(b)
         indegree[b] += 1
 
-    return topology_sort(N1, indegree, graph)
+        print_arr(graph)
+        print(indegree)
+        print("")
 
+    """
+    0 : []
+    1 : [2, 5]
+    2 : [3, 6]
+    3 : [4]
+    4 : [7]
+    5 : [6]
+    6 : [4]
+    7 : []
+    [0, 0, 1, 1, 2, 1, 2, 1]
+    """
+
+    return topology_sort(N1, indegree, graph)
 
 
 def main():
@@ -59,6 +75,11 @@ def main():
     ]
 
     assert solution(data, n+1) == [1, 2, 5, 3, 6, 4, 7]
+
+
+def print_arr(arr):
+    for no, a in enumerate(arr):
+        print(f"{no} : {a}")
 
 
 if __name__ == "__main__":
