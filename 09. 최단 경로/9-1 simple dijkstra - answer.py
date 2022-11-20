@@ -1,8 +1,6 @@
-from dis import dis
 import math
-from tkinter import N
 
-inf = math.inf
+INF = math.inf
 
 
 def solution(data, start_node, node_count):
@@ -11,26 +9,26 @@ def solution(data, start_node, node_count):
 
     graph = [[] for i in range(n)]
     visited = [False] * n
-    distance = [inf] * n
+    distance = [INF] * n
 
     for a, b, c in data:
         graph[a].append((b, c))
 
+    # 처음
     distance[start_node] = 0
     visited[start_node] = True
 
-    for j in graph[start_node]:
-        distance[j[0]] = j[1]
+    for b, v in graph[start_node]:
+        distance[b] = v
 
+    # n번
     for i in range(node_count - 1):
         now = get_smallest_node(visited, distance)
         visited[now] = True
 
-        for j in graph[now]:
-            cost = distance[now] + j[1]
-
-            if distance[j[0]] > cost:
-                distance[j[0]] = cost
+        for b, v in graph[now]:
+            cost = distance[now] + v
+            distance[b] = min(distance[b], cost)
 
     return distance[1:]
 
@@ -38,14 +36,13 @@ def solution(data, start_node, node_count):
 # 방문하지 않은 노드 중에서 가장 최단 거리 노드 반환
 def get_smallest_node(visited, distance):
 
-    min_value = inf
+    min_value = INF
     min_idx = 0
 
-    for idx, b in enumerate(visited):
-        if not b:
-            if min_value > distance[idx]:
-                min_idx = idx
-                min_value = distance[idx]
+    for idx, (v, d) in enumerate(zip(visited, distance)):
+        if not v and min_value > d:
+            min_idx = idx
+            min_value = d
 
     return min_idx
 
