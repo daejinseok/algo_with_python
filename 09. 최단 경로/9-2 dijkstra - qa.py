@@ -17,28 +17,30 @@ def solution(data, start_node, node_count):
 
     visited[start_node] = True
     distance[start_node] = 0
-    h = []
     for b, v in graph[start_node]:
         distance[b] = v
-        heappush(h, (v, b))
 
     for _ in range(N-1):
-        node = smallest_node(h, visited)
+        node = smallest_node(distance, visited)
 
         visited[node] = True
         for b, v in graph[node]:
             distance[b] = min(distance[b], distance[node]+v)
-            heappush(h, (distance[b], b))
 
-    print(distance[1:])
     return distance[1:]
 
 
-def smallest_node(h, visited):
-    _, node = heappop(h)
-    while visited[node]:
-        _, node = heappop(h)
-    return node
+def smallest_node(distance, visited):
+
+    cur_d = INF
+    cur_idx = 0
+
+    for idx, (d, v) in enumerate(zip(distance, visited)):
+        if not v and cur_d > d:
+            cur_idx = idx
+            cur_d = d
+
+    return cur_idx
 
 
 def main():
