@@ -6,30 +6,6 @@ INF = math.inf
 
 def solution(data, start_node, node_count):
 
-    N = node_count + 1
-
-    graph = [[] for i in range(N)]
-    distance = [INF] * N
-
-    for a, b, v in data:
-        graph[a].append((b, v))
-
-    h = []
-    heappush(h, (0, start_node))
-    distance[start_node] = 0
-
-    while h:
-        d, node = heappop(h)
-
-        if distance[node] < d:
-            continue
-
-        for b, v in graph[node]:
-            cost = d+v
-            if distance[b] > cost:
-                distance[b] = cost
-                heappush(h, (distance[b], b))
-
     return distance[1:]
 
 
