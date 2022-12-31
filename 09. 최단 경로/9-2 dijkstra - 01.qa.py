@@ -1,12 +1,5 @@
-import math
-from heapq import heappush, heappop
-
-INF = math.inf
-
-
 def solution(data, start_node, node_count):
-
-    return distance[1:]
+    pass
 
 
 def main():
